@@ -1,29 +1,35 @@
 package com.example.base;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.example.utils.ConfigReader;
 import com.example.utils.ExtentManager;
+import com.example.utils.ScreenshotUtils;
+
 
 // This line connects the watcher to all your tests
-@ExtendWith(TestResultWatcher.class)
+
 public class BaseTest {
 
 	// ThreadLocal ensures each thread has its own separate driver instance
 	protected static ThreadLocal<WebDriver> driverThread = new ThreadLocal<>();
-
+	
 	protected static ExtentReports extentReport;
+
 	protected static ThreadLocal<ExtentTest> testThread = new ThreadLocal<>();
+	
+
 
 	// Added getter so the Watcher can access the driver
 	public WebDriver getDriver() {
@@ -42,29 +48,50 @@ public class BaseTest {
         getDriver().manage().window().maximize();
     }
 
-	@BeforeAll
+	@BeforeSuite
 	public static void setupReport() {
 		extentReport = ExtentManager.createInstance();
 	}
 
-	@BeforeEach
-	public void setUp(TestInfo testInfo) {
-		ExtentTest extentTest = extentReport.createTest(testInfo.getDisplayName());
+	@BeforeMethod
+	public void setUp(Method method) {
+		ExtentTest extentTest = extentReport.createTest(method.getName());
 		testThread.set(extentTest);
 	}
 
-	@AfterEach
-	public void tearDown() {
+	@AfterMethod
+	public void tearDown(ITestResult result) {
 
 		/*
 		 * if (getDriver() != null) { getDriver().quit();
 		 * System.out.println("Driver.quit() has been called."); }
 		 */
 
+		if (result.getStatus() == ITestResult.FAILURE) {
+			
+			// Capture screenshot and attach to ExtentReport
+	        String base64Code = ScreenshotUtils.getBase64Screenshot(getDriver());
+
+	        getTest().fail("Test failed... " + result.getThrowable(),
+					MediaEntityBuilder.createScreenCaptureFromBase64String(base64Code).build());
+	        cleanup();
+		} else if (result.getStatus() == ITestResult.SUCCESS) {
+			getTest().pass("Test passed");
+			cleanup();
+		} else if (result.getStatus() == ITestResult.SKIP) {
+			getTest().skip("Test skipped");
+			cleanup();
+		}
 	}
 
-	@AfterAll
+	@AfterSuite
 	public static void flushReport() {
 		extentReport.flush();
 	}
+	
+	 private void cleanup() {
+	        if (getDriver() != null) {
+	            getDriver().quit(); // Final cleanup point
+	        }
+	    }
 }

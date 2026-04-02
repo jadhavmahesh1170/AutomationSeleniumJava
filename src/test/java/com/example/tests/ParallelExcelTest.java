@@ -1,22 +1,20 @@
 package com.example.tests;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
 
-import java.util.stream.Stream;
-
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import com.example.base.BaseTest;
-import com.example.base.ExcelUtils;
+import com.example.base.ExcelReader;
 import com.example.pages.LoginPage;
 import com.example.utils.ConfigReader;
 
 public class ParallelExcelTest extends BaseTest {
 
-    @ParameterizedTest(name = "Login row: {index}")
-    @MethodSource("provideExcelData")
+    
+    @Test(dataProvider = "staticLoginData")
     public void testLoginWithExcel(String browser, String username, String password) {
     	getTest().info("Starting test with Data: [User: " + username + ", Pass: " + password + "]");
         setupDriver(browser);
@@ -37,10 +35,23 @@ public class ParallelExcelTest extends BaseTest {
             getTest().fail("Login failed for "+"[User: "+username+"]");
         }
 
-        assertTrue(isInventoryVisible);
+        Assert.assertTrue(isInventoryVisible);
     }
     
-    static Stream<Arguments> provideExcelData() {
-        return ExcelUtils.getExcelData("src/test/resources/TestData.xlsx", "LoginData");
+    // 1. Define the DataProvider with a specific name
+    @DataProvider(name = "staticLoginData")
+    public Object[][] createStaticLoginData() {
+        return new Object[][] {
+            {"chrome", "standard_user", "secret_sauce", "10" },  // Row 1: Valid user
+            {"edge", "locked_out_user", "secret_sauce", "20" },  // Row 1: Invalid locked-out user
+        };
     }
+    
+ // 1. Define the DataProvider with a specific name
+    @DataProvider(name = "excelLoginData")
+    public Object[][] readLoginData() throws IOException {
+        return ExcelReader.getTestData("src/test/resources/TestData.xlsx", "LoginData");
+        
+        }
+ 
 }

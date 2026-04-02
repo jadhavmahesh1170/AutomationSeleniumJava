@@ -18,12 +18,19 @@
       <version>4.41.0</version>
     </dependency>
     <!-- JUnit 5 Engine -->
-    <dependency>
+   <!-- <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.11.0</version>
       <scope>test</scope>
-    </dependency>
+    </dependency>-->
+    <!-- TestNG Engine -->
+    <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.10.2</version> <!-- Use latest stable version -->
+    <scope>test</scope>
+	</dependency>
     <!-- ExtentReports -->
     <dependency>
       <groupId>com.aventstack</groupId>

@@ -1,10 +1,11 @@
 package com.example.tests;
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import com.example.base.BaseTest;
 import com.example.pages.LoginPage;
 import com.example.utils.ConfigReader;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest extends BaseTest {
 
@@ -25,7 +26,7 @@ public class LoginTest extends BaseTest {
         	getTest().fail("Login failed: Inventory page not reached.");
         }
 
-        assertTrue(isInventoryVisible);
+        Assert.assertTrue(isInventoryVisible);
     }
     
     @Test
@@ -45,6 +46,6 @@ public class LoginTest extends BaseTest {
         	getTest().pass("Verifiction passed - not able to loin");
         }
 
-        assertFalse(isInventoryVisible,"Verification failed! - User is able to login.");
+        Assert.assertFalse(isInventoryVisible,"Verification failed! - User is able to login.");
     }
 }
