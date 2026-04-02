@@ -24,6 +24,7 @@ public class DriverFactory {
 		default:
 			driver = new ChromeDriver();
 			System.out.println("Since no browser specified, defaulting to Chrome browser");
+			break;
 		}
 
 		return driver;
