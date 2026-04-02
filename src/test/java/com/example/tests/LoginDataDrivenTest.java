@@ -36,8 +36,8 @@ public class LoginDataDrivenTest extends BaseTest {
     @DataProvider(name ="loginDataProvider")
     static Object[][] loginDataProvider() {
     	return new Object[][] {
-            {"chrome", "standard_user", "secret_sauce", "10" },  // Row 1: Valid user
-            {"edge", "locked_out_user", "secret_sauce", "20" },  // Row 1: Invalid locked-out user
+            {"chrome", "standard_user", "secret_sauce"},  // Row 1: Valid user
+            {"edge", "locked_out_user", "secret_sauce"},  // Row 1: Invalid locked-out user
         };
     }
 }

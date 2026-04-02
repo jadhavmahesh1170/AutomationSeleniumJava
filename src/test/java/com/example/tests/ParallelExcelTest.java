@@ -14,7 +14,7 @@ import com.example.utils.ConfigReader;
 public class ParallelExcelTest extends BaseTest {
 
     
-    @Test(dataProvider = "staticLoginData")
+    @Test(dataProvider = "excelLoginData")
     public void testLoginWithExcel(String browser, String username, String password) {
     	getTest().info("Starting test with Data: [User: " + username + ", Pass: " + password + "]");
         setupDriver(browser);
@@ -42,8 +42,8 @@ public class ParallelExcelTest extends BaseTest {
     @DataProvider(name = "staticLoginData")
     public Object[][] createStaticLoginData() {
         return new Object[][] {
-            {"chrome", "standard_user", "secret_sauce", "10" },  // Row 1: Valid user
-            {"edge", "locked_out_user", "secret_sauce", "20" },  // Row 1: Invalid locked-out user
+            {"chrome", "standard_user", "secret_sauce" },  // Row 1: Valid user
+            {"edge", "locked_out_user", "secret_sauce" },  // Row 1: Invalid locked-out user
         };
     }
     
