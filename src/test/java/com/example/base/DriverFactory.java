@@ -29,7 +29,8 @@ public class DriverFactory {
 			options.addArguments("--remote-debugging-port=9222");
 			// Creates a unique temporary folder for each run
 			options.addArguments("--user-data-dir=C:\\temp\\edge-profile-" + System.currentTimeMillis());
-			options.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+			//options.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+			options.addArguments("--disable-gpu");
 			driver = new EdgeDriver(options);
 
 			break;
