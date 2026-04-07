@@ -62,10 +62,10 @@
 						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
 					</suiteXmlFiles>
 					<systemPropertyVariables>
-						<!-- This maps the command line -Dbrowser to the TestNG
-						parameter -->
-						<browser>${browser}</browser>
-						<env>${env}</env>
+						<!-- These tags maps to the command line variables like -Dbrowser/-Denv to the TestNG
+						parameters -->
+						<!--<browser>${browser}</browser>
+						<env>${env}</env>-->
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

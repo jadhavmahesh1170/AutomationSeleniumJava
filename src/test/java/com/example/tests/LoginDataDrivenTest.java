@@ -19,7 +19,7 @@ public class LoginDataDrivenTest extends BaseTest {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(username, password);
         // Your Selenium logic here
-        System.out.println("Running test for: " + username + " on thread: " + Thread.currentThread().getId());
+        System.out.println("Running test for: " + username + " on thread: " + Thread.currentThread().threadId());
  
         boolean isInventoryVisible = getDriver().getCurrentUrl().contains("inventory.html");
         

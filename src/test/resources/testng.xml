@@ -1,10 +1,10 @@
 <?xml-model href=""?>
-<suite name="Selenium Suite" parallel = "methods" thread-count="2">
+<suite name="Selenium Suite" parallel = "classes" thread-count="2">
 	<test name="Smoke suite">
 		<classes>
 			<class name="com.example.tests.LoginTest"></class>
-			<!--<class name="com.example.tests.LoginDataDriverTest"></class>
-			<class name="com.example.testsParallelExcelTest"></class>-->
+			<class name="com.example.tests.LoginDataDrivenTest"></class>
+			<class name="com.example.tests.ParallelExcelTest"></class>
 		</classes>
 	</test>
 </suite>

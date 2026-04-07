@@ -20,12 +20,12 @@ public class ParallelExcelTest extends BaseTest {
         setupDriver(browser);
     	getDriver().get("https://www.saucedemo.com");
         // Your login steps here
-        System.out.println("Testing " + username + " on thread " + Thread.currentThread().getId());
+        System.out.println("Testing " + username + " on thread " + Thread.currentThread().threadId());
         getTest().info("Navigated to: " + ConfigReader.get("url"));
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(username, password);
         // Your Selenium logic here
-        System.out.println("Running test for: " + username + " on thread: " + Thread.currentThread().getId());
+        System.out.println("Running test for: " + username + " on thread: " + Thread.currentThread().threadId());
  
         boolean isInventoryVisible = getDriver().getCurrentUrl().contains("inventory.html");
         
