@@ -13,7 +13,8 @@ public class ExtentManager {
     public static ExtentReports createInstance() {
         // Create a unique timestamp: e.g., 2026-03-18_22-50-15
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-        String fileName = "target/Reports/TestReport_" + timestamp + ".html";
+        //String fileName = "target/Reports/TestReport_" + timestamp + ".html";
+        String fileName = "target/Reports/TestReport.html";
 
         ExtentSparkReporter sparkReporter = new ExtentSparkReporter(fileName);
         
