@@ -7,9 +7,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.example.base.BaseTest;
-import com.example.base.ExcelReader;
 import com.example.pages.LoginPage;
 import com.example.utils.ConfigReader;
+import com.example.utils.ExcelReader;
 
 public class ParallelExcelTest extends BaseTest {
 

@@ -1,15 +1,19 @@
 package com.example.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.example.base.BaseTest;
+import com.example.base.MyRetryAnalyzer;
+import com.example.base.MyTestListener;
 import com.example.pages.LoginPage;
 import com.example.utils.ConfigReader;
 
+@Listeners(MyTestListener.class)
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(enabled=true)
     public void testSuccessfulLogin() {
     	setupDriver("chrome");
         getDriver().get(ConfigReader.get("url"));
@@ -29,7 +33,7 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(isInventoryVisible);
     }
     
-    @Test
+    @Test(retryAnalyzer = MyRetryAnalyzer.class)
     public void testUnsuccessfulLogin() {
     	setupDriver("edge");
         getDriver().get(ConfigReader.get("url"));

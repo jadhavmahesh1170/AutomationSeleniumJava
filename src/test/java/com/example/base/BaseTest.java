@@ -17,9 +17,6 @@ import com.example.utils.ConfigReader;
 import com.example.utils.ExtentManager;
 import com.example.utils.ScreenshotUtils;
 
-
-// This line connects the watcher to all your tests
-
 public class BaseTest {
 
 	// ThreadLocal ensures each thread has its own separate driver instance
@@ -29,9 +26,7 @@ public class BaseTest {
 
 	protected static ThreadLocal<ExtentTest> testThread = new ThreadLocal<>();
 	
-
-
-	// Added getter so the Watcher can access the driver
+	// Helper method to get the correct driver instance for the current thread
 	public WebDriver getDriver() {
 		return driverThread.get();
 	}
@@ -57,15 +52,11 @@ public class BaseTest {
 	public void setUp(Method method) {
 		ExtentTest extentTest = extentReport.createTest(method.getName());
 		testThread.set(extentTest);
+		System.out.println("Extent test intilaized successfully.");
 	}
 
 	@AfterMethod
 	public void tearDown(ITestResult result) {
-
-		/*
-		 * if (getDriver() != null) { getDriver().quit();
-		 * System.out.println("Driver.quit() has been called."); }
-		 */
 
 		if (result.getStatus() == ITestResult.FAILURE) {
 			

@@ -1,5 +1,9 @@
 <?xml-model href=""?>
-<suite name="Selenium Suite" parallel = "methods" thread-count="2">
+<suite name="Selenium Suite" parallel="methods" thread-count="2">
+	<listeners>
+		<listener class-name="com.example.base.MyTestListener" />
+		<listener class-name="com.example.base.MyAnnotationTransformer" />
+	</listeners>
 	<test name="Smoke suite">
 		<classes>
 			<!--<class name="com.example.tests.LoginTest"></class>
